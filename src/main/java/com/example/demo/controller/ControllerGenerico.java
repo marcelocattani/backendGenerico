@@ -33,6 +33,17 @@ public class ControllerGenerico<E, S extends IservicioGenerico<E>> {
 
 	}
 	
+	@GetMapping("/count")
+	@Transactional
+	public ResponseEntity<?> getAll(@RequestParam(value =  "size", defaultValue = "10") int size) {
+		try {
+			return ResponseEntity.status(HttpStatus.OK).body("{\"pages\": "+service.countPages(size)+"}");
+		} catch (Exception e) {
+			return null;
+		}
+		
+	}
+	
 	@GetMapping("/")
 	@Transactional
 	public ResponseEntity<?> getAll(@RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value =  "size", defaultValue = "10") int size){

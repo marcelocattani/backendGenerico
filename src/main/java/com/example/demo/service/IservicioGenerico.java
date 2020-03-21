@@ -11,7 +11,7 @@ public interface IservicioGenerico <E> {
 	
 	public E update(int id, E entityForm) throws Exception;
 	
-	public int countPages(int page, int size) throws Exception;
+	public int countPages(int size) throws Exception;
 	
 	public List<E> findAll(int page, int size) throws Exception;
 }

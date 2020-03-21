@@ -84,9 +84,14 @@ public abstract class ServicioGenerico<E, R extends JpaRepository<E, Integer>> i
 	}
 
 	@Override
-	public int countPages(int page, int size) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+	public int countPages(int size) throws Exception {
+		try {
+			Pageable pageable = PageRequest.of(0, size);
+			return repository.findAll(pageable).getTotalPages();			
+
+		} catch (Exception e) {
+			throw new Exception(e.getMessage());
+		}
 	}
 
 	@Override
@@ -94,8 +99,7 @@ public abstract class ServicioGenerico<E, R extends JpaRepository<E, Integer>> i
 		
 		try {
 			Pageable pageable = PageRequest.of(page, size);
-			Page<E> entities = repository.findAll(pageable);
-			return entities.getContent();
+			return repository.findAll(pageable).getContent();			
 
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
