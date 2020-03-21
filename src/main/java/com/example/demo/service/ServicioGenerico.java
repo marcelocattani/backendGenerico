@@ -14,22 +14,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public abstract class ServicioGenerico<E, R extends JpaRepository<E, Integer>> implements IservicioGenerico<E> {
 	
 	@Autowired
-	protected R repository;
+	protected R repository;	
 	
-	@Override
-	public List<E> findAll() throws Exception {
-		try {
-			List<E> entities = repository.findAll();
-			return entities;
-
-		} catch (Exception e) {
-
-			throw new Exception(e.getMessage());
-
-		}
-	
-	
-	}
 
 	@Override
 	public E findById(int id) throws Exception {

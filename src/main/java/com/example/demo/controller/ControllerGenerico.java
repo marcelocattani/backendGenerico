@@ -16,26 +16,10 @@ import com.example.demo.service.IservicioGenerico;
 public class ControllerGenerico<E, S extends IservicioGenerico<E>> {
 	@Autowired
 	protected S service;
-
-	@GetMapping("")
-	@Transactional
-	public ResponseEntity<?> getAll() {
-
-		try {
-			return ResponseEntity.status(HttpStatus.OK).body(service.findAll());
-
-		} catch (Exception e) {
-
-			return ResponseEntity.status(HttpStatus.NOT_FOUND)
-					.body("{\"Mi mensaje get todos\": \"" + e.getMessage() + "\"}");
-
-		}
-
-	}
 	
 	@GetMapping("/count")
 	@Transactional
-	public ResponseEntity<?> getAll(@RequestParam(value =  "size", defaultValue = "10") int size) {
+	public ResponseEntity<?> getCount(@RequestParam(value =  "size", defaultValue = "10") int size) {
 		try {
 			return ResponseEntity.status(HttpStatus.OK).body("{\"pages\": "+service.countPages(size)+"}");
 		} catch (Exception e) {
