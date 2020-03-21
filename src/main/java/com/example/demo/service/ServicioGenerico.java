@@ -16,15 +16,12 @@ import com.example.demo.entities.Persona;
 public abstract class ServicioGenerico<E, R extends JpaRepository<E, Integer>> implements IservicioGenerico<E> {
 	
 	@Autowired
-	private R repository;
+	protected R repository;
 	
 	@Override
 	public List<E> findAll() throws Exception {
 		try {
-			System.out.println("Entre al servicio");
 			List<E> entities = repository.findAll();
-			System.out.println("Entre al post");
-			System.out.println(entities);
 			return entities;
 
 		} catch (Exception e) {
@@ -32,7 +29,6 @@ public abstract class ServicioGenerico<E, R extends JpaRepository<E, Integer>> i
 			throw new Exception(e.getMessage());
 
 		}
-		
 	
 	
 	}
@@ -51,7 +47,6 @@ public abstract class ServicioGenerico<E, R extends JpaRepository<E, Integer>> i
 		} catch (Exception e) {
 
 			throw new Exception(e.getMessage());
-
 		}
 		
 	}
@@ -67,7 +62,6 @@ public abstract class ServicioGenerico<E, R extends JpaRepository<E, Integer>> i
 		} catch (Exception e) {
 
 			throw new Exception(e.getMessage());
-
 		}
 	}
 
