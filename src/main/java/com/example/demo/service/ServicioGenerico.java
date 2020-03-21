@@ -1,16 +1,14 @@
 package com.example.demo.service;
 
+
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.CrudRepository;
-
-import com.example.demo.entities.Persona;
-
-
-
 
 
 public abstract class ServicioGenerico<E, R extends JpaRepository<E, Integer>> implements IservicioGenerico<E> {
@@ -93,8 +91,16 @@ public abstract class ServicioGenerico<E, R extends JpaRepository<E, Integer>> i
 
 	@Override
 	public List<E> findAll(int page, int size) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		
+		try {
+			Pageable pageable = PageRequest.of(page, size);
+			Page<E> entities = repository.findAll(pageable);
+			return entities.getContent();
+
+		} catch (Exception e) {
+			throw new Exception(e.getMessage());
+		}
+		
 	}
 
 }
