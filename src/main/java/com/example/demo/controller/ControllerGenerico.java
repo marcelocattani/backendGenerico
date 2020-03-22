@@ -92,7 +92,7 @@ public class ControllerGenerico<E, S extends IservicioGenerico<E>> {
 	
 	@DeleteMapping("/{id}")
 	@Transactional
-	public ResponseEntity<?> delete(@PathVariable int id, @RequestBody E personaForm) {
+	public ResponseEntity<?> delete(@PathVariable int id) {
 
 		try {
 
