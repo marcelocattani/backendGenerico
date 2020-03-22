@@ -29,7 +29,7 @@ public class ControllerGenerico<E, S extends IservicioGenerico<E>> {
 		
 	}
 	
-	@GetMapping("/")
+	@GetMapping("")
 	@Transactional
 	public ResponseEntity<?> getAll(@RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value =  "size", defaultValue = "10") int size){
 		try {
