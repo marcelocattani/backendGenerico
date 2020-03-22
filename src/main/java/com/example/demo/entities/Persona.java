@@ -29,12 +29,9 @@ public class Persona implements Serializable {
 	
 @OneToOne(cascade= CascadeType.ALL, fetch = FetchType.EAGER)
 	private Domicilio domicilio;
-
 	
-	public Persona() {
-		
+	public Persona() {		
 	}
-
 
 	public Persona(String nombre, String apellido, int dni) {
 	

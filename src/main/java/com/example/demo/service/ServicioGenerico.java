@@ -1,41 +1,21 @@
 package com.example.demo.service;
 
+
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.CrudRepository;
-
-import com.example.demo.entities.Persona;
-
-
-
 
 
 public abstract class ServicioGenerico<E, R extends JpaRepository<E, Integer>> implements IservicioGenerico<E> {
 	
 	@Autowired
-	private R repository;
+	protected R repository;	
 	
-	@Override
-	public List<E> findAll() throws Exception {
-		try {
-			System.out.println("Entre al servicio");
-			List<E> entities = repository.findAll();
-			System.out.println("Entre al post");
-			System.out.println(entities);
-			return entities;
-
-		} catch (Exception e) {
-
-			throw new Exception(e.getMessage());
-
-		}
-		
-	
-	
-	}
 
 	@Override
 	public E findById(int id) throws Exception {
@@ -51,7 +31,6 @@ public abstract class ServicioGenerico<E, R extends JpaRepository<E, Integer>> i
 		} catch (Exception e) {
 
 			throw new Exception(e.getMessage());
-
 		}
 		
 	}
@@ -67,7 +46,6 @@ public abstract class ServicioGenerico<E, R extends JpaRepository<E, Integer>> i
 		} catch (Exception e) {
 
 			throw new Exception(e.getMessage());
-
 		}
 	}
 
@@ -92,15 +70,40 @@ public abstract class ServicioGenerico<E, R extends JpaRepository<E, Integer>> i
 	}
 
 	@Override
-	public int countPages(int page, int size) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+	public int countPages(int size) throws Exception {
+		try {
+			Pageable pageable = PageRequest.of(0, size);
+			return repository.findAll(pageable).getTotalPages();			
+
+		} catch (Exception e) {
+			throw new Exception(e.getMessage());
+		}
 	}
 
 	@Override
 	public List<E> findAll(int page, int size) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		
+		try {
+			Pageable pageable = PageRequest.of(page, size);
+			return repository.findAll(pageable).getContent();			
+
+		} catch (Exception e) {
+			throw new Exception(e.getMessage());
+		}
+		
+	}
+	
+	public boolean delete(int id) throws Exception{
+		try {
+			if(repository.existsById(id)) {
+				repository.deleteById(id);
+			}		
+			
+		} catch (Exception e) {
+			throw new Exception(e.getMessage());
+		}
+		
+		return !repository.existsById(id);
 	}
 
 }
