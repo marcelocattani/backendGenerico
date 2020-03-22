@@ -92,5 +92,18 @@ public abstract class ServicioGenerico<E, R extends JpaRepository<E, Integer>> i
 		}
 		
 	}
+	
+	public boolean delete(int id) throws Exception{
+		try {
+			if(repository.existsById(id)) {
+				repository.deleteById(id);
+			}		
+			
+		} catch (Exception e) {
+			throw new Exception(e.getMessage());
+		}
+		
+		return !repository.existsById(id);
+	}
 
 }

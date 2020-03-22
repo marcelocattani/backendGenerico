@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -80,6 +81,22 @@ public class ControllerGenerico<E, S extends IservicioGenerico<E>> {
 		try {
 
 			return ResponseEntity.status(HttpStatus.OK).body(service.update(id, personaForm));
+
+		} catch (Exception e) {
+
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+					.body("{\"Mi mensaje put\": \"" + e.getMessage() + "\"}");
+		}
+
+	}
+	
+	@DeleteMapping("/{id}")
+	@Transactional
+	public ResponseEntity<?> delete(@PathVariable int id, @RequestBody E personaForm) {
+
+		try {
+
+			return ResponseEntity.status(HttpStatus.OK).body(service.delete(id));
 
 		} catch (Exception e) {
 

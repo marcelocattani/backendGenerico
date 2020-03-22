@@ -13,4 +13,6 @@ public interface IservicioGenerico <E> {
 	public int countPages(int size) throws Exception;
 	
 	public List<E> findAll(int page, int size) throws Exception;
+	
+	public boolean delete(int id) throws Exception;
 }
